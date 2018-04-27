@@ -65,17 +65,11 @@ public class Utility {
     /**
      * 解析和处理服务器返回的县级数据
      */
-    public static boolean handleCountyResponse(Activity activity, Context context, String response, int cityId) {
+    public static boolean handleCountyResponse(String response, int cityId) {
         if (!TextUtils.isEmpty(response)) {
             try {
                 JSONArray allCounties = new JSONArray(response);
                 final String response2 = response;
-//                activity.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Toast.makeText(context, response2, Toast.LENGTH_LONG).show();
-//                    }
-//                });
                 for (int i = 0; i < allCounties.length(); i++) {
                     JSONObject countyObject = allCounties.getJSONObject(i);
                     County county = new County();
@@ -85,12 +79,6 @@ public class Utility {
                     county.setCityId(cityId);
                     county.save();
                 }
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(context, "here", Toast.LENGTH_LONG).show();
-                    }
-                });
                 return true;
             } catch (JSONException e) {
                 e.printStackTrace();
